@@ -1,10 +1,42 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+  keyframes,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css'],
+  animations: [
+    trigger('moveInLeft', [
+      transition('void=> *', [
+        style({ transform: 'translateX(300px)' }),
+        animate(
+          200,
+          keyframes([
+            style({ transform: 'translateX(300px)' }),
+            style({ transform: 'translateX(0)' }),
+          ])
+        ),
+      ]),
+      transition('*=>void', [
+        style({ transform: 'translateX(0px)' }),
+        animate(
+          100,
+          keyframes([
+            style({ transform: 'translateX(0px)' }),
+            style({ transform: 'translateX(300px)' }),
+          ])
+        ),
+      ]),
+    ]),
+  ],
 })
 export class HomepageComponent implements OnInit {
   todoForm = this.fb.group({
@@ -33,16 +65,6 @@ export class HomepageComponent implements OnInit {
         this.todoArray.splice(i, 1);
         console.log('delete item');
       }
-    }
-  }
-  todoSubmit() {
-    let value = this.todoForm.value.todo;
-    if (value != '') {
-      console.log(value);
-      this.todoArray.push(value);
-      this.todoForm.reset();
-    } else {
-      alert('Todo Field Reqired!!');
     }
   }
 }
