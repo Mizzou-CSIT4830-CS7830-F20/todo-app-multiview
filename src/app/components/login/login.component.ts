@@ -29,8 +29,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
-    console.warn(this.loginForm.value);
-
     if (
       this.loginForm.value.email == 'test@test.com' &&
       this.loginForm.value.password == 'pass'
